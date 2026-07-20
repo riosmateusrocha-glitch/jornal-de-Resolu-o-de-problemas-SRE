@@ -34,9 +34,10 @@ Para solucionar o isolamento mantendo a segurança da infraestrutura, foi desenh
 2. Provisionamento do Elastic IP (EIP): Declaração de um IP público estático (`aws_eip`) dedicado a mascarar a saída da rede.
 3. Provisionamento do NAT Gateway: Alocação do recurso `aws_nat_gateway` dentro da sub-rede pública recém-criada, vinculando-o ao Elastic IP e adicionando um bloco de dependência explícita (`depends_on`) para garantir a precedência do IGW.
 4. Atualização do Roteamento Privado: Configuração do recurso `aws_route_table` da sub-rede privada, direcionando a rota de saída `0.0.0.0/0` para o ID do **NAT Gateway**.
-5. Vínculo Final:** Associação da tabela de rotas privada à respectiva sub-rede privada via `aws_route_table_association`.
+5. Vínculo Final: Associação da tabela de rotas privada à respectiva sub-rede privada via `aws_route_table_association`.
 Com esse fluxo, as instâncias EC2 privadas ganharam a capacidade de iniciar conexões com a internet para atualizar os pacotes do Kubernetes de forma totalmente mascarada pelo NAT Gateway, sem expor suas interfaces internas a ameaças externas.
-4. Avaliação Técnica do Mentor (SRE/Platform Engineering)
+
+### Avaliação Técnica do Mentor (SRE/Platform Engineering)
 A resolução demonstra profunda maturidade técnica em redes de computadores aplicada a ambientes Cloud:
 
 - Domínio do Modelo de Rede da AWS (VPC Core): Evidenciou claro entendimento sobre o comportamento stateful de Security Groups, diferenciando com precisão regras de *Ingress* e *Egress*, além de compreender a natureza implícita do ecossistema DHCP/DNS gerenciados da nuvem AWS.
